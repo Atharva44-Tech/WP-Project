@@ -50,3 +50,28 @@ google.maps.event.addListener(marker, 'click', function() {
 marker.setMap(map); 
 }
 
+
+function fillFeedbackForm(user) {
+    const nameField = document.getElementById("fullname");
+    const contactField = document.getElementById("contact");
+    const emailField = document.getElementById("feedback-email");
+
+    if (nameField) {
+        nameField.value = user.firstname + " " + user.lastname;
+    }
+
+    if (contactField) {
+        contactField.value = user.phone;
+    }
+
+    if (emailField) {
+        emailField.value = user.email;
+    }
+}
+
+window.addEventListener("load", function () {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) {
+        fillFeedbackForm(savedUser);
+    }
+});

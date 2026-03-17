@@ -362,8 +362,84 @@
         if (!terms)                              { document.getElementById("terms-error").classList.add("visible"); isValid = false; }
 
         if (isValid) {
-            alert("Form submitted successfully!\nRedirecting to the homepage...");
-            window.location.href = "index.html";
-        }
+
+    const newUser = new User(firstName, lastName, email, phone, username);
+
+    console.log("User Created:", newUser.getDetails());
+
+    localStorage.setItem("user", JSON.stringify(newUser));
+
+    alert("Form submitted successfully!\nRedirecting to homepage...");
+
+    window.location.href = "index.html";
+}
     });
+
+function User(
+    firstname = "Guest",
+    lastname = "",
+    email = "example@gmail.com",
+    phone = "0123456789",
+    username = "user123"
+) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.phone = phone;
+    this.username = username;
+
+    this.getDetails = function () {
+        return this.firstname + " " + this.lastname + " (" + this.username + ")";
+    };
+}
+
+window.addEventListener("load", function () {
+    const defaultUser = new User();
+
+    document.getElementById("firstname").value = defaultUser.firstname;
+    document.getElementById("lastname").value = defaultUser.lastname;
+    document.getElementById("email").value = defaultUser.email;
+    document.getElementById("phone").value = defaultUser.phone;
+    document.getElementById("username").value = defaultUser.username;
+});
+
+function visitCounter() {
+    let count = 0;
+    return function () {
+        count++;
+        console.log("Visited " + count + " times");
+    };
+}
+const counter = visitCounter();
+counter();
+counter();
+
+const restaurant = {
+    name: "Ramashrey",
+    show: function () {
+        console.log("Welcome to " + this.name);
+    }
+};
+restaurant.show();
+
+const user1 = { name: "Atharva" };
+function greet(city) {
+    console.log("Hello " + this.name + " from " + city);
+}
+greet.call(user1, "Mumbai");
+
+const user2 = { name: "Harsh" };
+function greetUser() {
+    console.log("Hello " + this.name);
+}
+const bound = greetUser.bind(user2);
+bound();
+
+function orderDish(dish = "Dosa", qty = 1) {
+    console.log(dish + " x " + qty);
+}
+orderDish();
+
+const welcome = () => console.log("Welcome!");
+welcome();
 </script>
